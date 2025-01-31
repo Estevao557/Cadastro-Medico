@@ -1,8 +1,10 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.voll.api.endereco.Endereco;
+import med.voll.api.domain.endereco.Endereco;
+
+import java.util.function.Consumer;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
@@ -41,18 +43,19 @@ public class Medico {
     }
 
     public void atualizaInformacoes(DadosAtualizaMedico dados) {
-        if(dados.nome() != null) {
-            this.nome = dados.nome();
-        }
-        if(dados.telefone() != null) {
-            this.telefone = dados.telefone();
-        }
-
-        if(dados.endereco() != null) {
+        atualizaValor(dados.nome(), nome -> this.nome = nome);
+        atualizaValor(dados.telefone(), telefone -> this.telefone = telefone);
+        if (dados.endereco() != null) {
             this.endereco.atualizaInformacoes(dados.endereco());
         }
+        atualizaValor(dados.especialidade(), especialidade -> this.especialidade = especialidade);
+        atualizaValor(dados.email(), email -> this.email = email);
+    }
 
-
+    private <T> void atualizaValor(T valor, Consumer<T> setter) {
+        if (valor != null) {
+            setter.accept(valor);
+        }
     }
 
     public void excluir() {
