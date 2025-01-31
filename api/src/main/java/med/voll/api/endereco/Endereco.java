@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.function.Consumer;
+
 @Embeddable
 @Getter
 @AllArgsConstructor
@@ -33,30 +35,19 @@ public class Endereco {
     }
 
     public void atualizaInformacoes(DadosEndereco dados) {
-        if (dados.logradouro() != null) {
-            this.logradouro = dados.logradouro();
-        }
+        atualizaValor(dados.logradouro(), logradouro -> this.logradouro = logradouro);
+        atualizaValor(dados.bairro(), bairro -> this.bairro = bairro);
+        atualizaValor(dados.cep(), cep -> this.cep = cep);
+        atualizaValor(dados.cidade(), cidade -> this.cidade = cidade);
+        atualizaValor(dados.numero(), numero -> this.numero = numero);
+        atualizaValor(dados.complemento(), complemento -> this.complemento = complemento);
+        atualizaValor(dados.uf(), uf -> this.uf = uf);
+    }
 
-        if (dados.bairro() != null) {
-            this.bairro = dados.bairro();
-        }
-        if (dados.cep() != null) {
-            this.cep = dados.cep();
-        }
-
-        if (dados.cidade() != null) {
-            this.cidade = dados.cidade();
-        }
-
-        if (dados.numero() != null) {
-            this.numero = dados.numero();
-        }
-
-        if (dados.complemento() != null) {
-            this.complemento = dados.complemento();
-        }
-        if (dados.uf() != null) {
-            this.uf = dados.uf();
+    private <T> void atualizaValor(T valor, Consumer<T> setter) {
+        if (valor != null) {
+            setter.accept(valor);
         }
     }
+
 }

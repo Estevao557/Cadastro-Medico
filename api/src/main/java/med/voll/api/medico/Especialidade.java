@@ -4,5 +4,7 @@ public enum  Especialidade {
 
     ORTOPEDIA,
     CARDIOLOGIA,
-    DERMARTOLOGIA
+    DERMARTOLOGIA,
+    FISIOTERAPEUTA,
+
 }
