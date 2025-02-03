@@ -17,6 +17,7 @@ public class MedicoController {
     @Autowired
     private MedicoRepository repository;
 
+    //End Point Cadastro de medico
     @PostMapping
     @Transactional
     public ResponseEntity cadastrarMedico(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
