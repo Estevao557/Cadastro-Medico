@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 @Table(name = "medicos")
 @Entity(name = "Medico")
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Medico {
@@ -31,7 +32,7 @@ public class Medico {
 
     private  Boolean ativo;
 
-    public Medico() {}
+
     public Medico(DadosCadastroMedico dados) {
         this.nome = dados.nome();
         this.email = dados.email();

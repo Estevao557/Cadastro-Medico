@@ -1,5 +1,6 @@
 package med.voll.api.domain.consulta;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,8 +13,12 @@ public record DadosDetalhamentoConsulta(
         @NotNull
         Long idPaciente,
 
-        @NotNull
+        Long id, @NotNull
         @Future
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime data
 ) {
+        public DadosDetalhamentoConsulta(Consulta consulta) {
+                this(consulta.getId(), consulta.getMedico().getId(), consulta.getPaciente().getId(), consulta.getData());
+        }
 }
